@@ -56,15 +56,17 @@ export default function Contact() {
           phone_number: form.phone,
           purpose: form.purpose || 'Not specified',
           message: form.purpose || 'Not specified',
-          to_email: 'aham.sharma.2009@gmail.com',
+          to_email: 'Altitude.kinetic.Solutions@gmail.com',
         },
         { publicKey: PUBLIC_KEY }
       )
       setStatus('sent')
       setForm(initialForm)
     } catch (err) {
-      console.error(err)
+      console.error('EmailJS error:', err)
+      console.error('Status:', err?.status, 'Text:', err?.text)
       setStatus('error')
+      setErrors((prev) => ({ ...prev, _api: err?.text || err?.message || String(err) }))
     }
   }
 
@@ -191,10 +193,10 @@ export default function Contact() {
               Direct
             </p>
             <a
-              href="mailto:Altitude.kinetic.Solutions@gmail.com"
+              href="mailto:Hr@altitudekinetics.com"
               className="block text-[var(--ice)] hover:text-[var(--blue-electric)] mb-2 break-all"
             >
-              Altitude.kinetic.Solutions@gmail.com
+              Hr@altitudekinetics.com
             </a>
             <p className="text-[var(--slate)] text-sm">Greater Noida, Uttar Pradesh, India</p>
           </div>

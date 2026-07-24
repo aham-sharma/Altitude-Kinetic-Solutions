@@ -39,8 +39,8 @@ export default function Footer() {
           <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-[var(--slate)] mb-4">Reach Us</p>
           <ul className="space-y-2 text-sm text-[var(--ice)]/80">
             <li>
-              <a href="mailto:Altitude.kinetic.Solutions@gmail.com" className="hover:text-[var(--blue-electric)]">
-                Altitude.kinetic.Solutions@gmail.com
+              <a href="mailto:Hr@altitudekinetics.com" className="hover:text-[var(--blue-electric)]">
+                Hr@altitudekinetics.com
               </a>
             </li>
             <li>Greater Noida, Uttar Pradesh, India</li>
