@@ -43,7 +43,7 @@ export default function Footer() {
                 Hr@altitudekinetics.com
               </a>
             </li>
-            <li>Greater Noida, Uttar Pradesh, India</li>
+            <li>30 N Gould St Ste R, Sheridan, WY 82801</li>
           </ul>
           <p className="mt-4 text-[var(--slate)] text-xs leading-relaxed">
             Transform Business. Empower People. Accelerate Success.

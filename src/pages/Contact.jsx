@@ -198,7 +198,7 @@ export default function Contact() {
             >
               Hr@altitudekinetics.com
             </a>
-            <p className="text-[var(--slate)] text-sm">Greater Noida, Uttar Pradesh, India</p>
+            <p className="text-[var(--slate)] text-sm">30 N Gould St Ste R, Sheridan, WY 82801</p>
           </div>
 
           <div className="glass-card">
