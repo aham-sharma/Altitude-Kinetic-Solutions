@@ -35,7 +35,8 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* scroll-behavior handled by GSAP/JS — removed 'smooth' to prevent
+     fighting with instant scrollTo on route changes */
 }
 
 body {
@@ -45,6 +46,12 @@ body {
   font-family: 'Inter', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   transition: background-color 0.4s ease, color 0.4s ease;
+  cursor: none;
+}
+
+/* Restore default cursor on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  body { cursor: auto; }
 }
 
 .font-display {
@@ -64,71 +71,78 @@ body {
   }
 }
 
-/* Ascent line draw-in */
+/* ===== Custom Cursor ===== */
+.cursor-dot {
+  position: fixed;
+  top: -5px;
+  left: -5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--blue-electric);
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  will-change: transform;
+}
+
+.cursor-ring {
+  position: fixed;
+  top: -20px;
+  left: -20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid var(--blue-electric);
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.5;
+  will-change: transform;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .cursor-dot, .cursor-ring { display: none; }
+}
+
+/* ===== Ascent line draw-in ===== */
 .ascent-path {
   stroke-dasharray: 1400;
   stroke-dashoffset: 1400;
-  animation: draw-ascent 2.2s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-}
-@keyframes draw-ascent {
-  to { stroke-dashoffset: 0; }
 }
 
 .ascent-blip {
   opacity: 0;
-  animation: blip-in 0.6s ease forwards;
-  animation-delay: 1.9s;
-}
-@keyframes blip-in {
-  from { opacity: 0; transform: scale(0.3); }
-  to { opacity: 1; transform: scale(1); }
 }
 
-/* fade-up utility for scroll reveals */
-.reveal {
-  opacity: 0;
-  transform: translateY(18px);
-  animation: reveal-in 0.7s ease forwards;
-}
-@keyframes reveal-in {
-  to { opacity: 1; transform: translateY(0); }
+/* ===== Noise texture overlay ===== */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9990;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px 128px;
 }
 
-/* Stagger children animation */
-.stagger-children > * {
-  opacity: 0;
-  transform: translateY(12px);
-  animation: reveal-in 0.5s ease forwards;
-}
-.stagger-children > *:nth-child(1) { animation-delay: 0.05s; }
-.stagger-children > *:nth-child(2) { animation-delay: 0.1s; }
-.stagger-children > *:nth-child(3) { animation-delay: 0.15s; }
-.stagger-children > *:nth-child(4) { animation-delay: 0.2s; }
-.stagger-children > *:nth-child(5) { animation-delay: 0.25s; }
-.stagger-children > *:nth-child(6) { animation-delay: 0.3s; }
-.stagger-children > *:nth-child(7) { animation-delay: 0.35s; }
-.stagger-children > *:nth-child(8) { animation-delay: 0.4s; }
-.stagger-children > *:nth-child(9) { animation-delay: 0.45s; }
-.stagger-children > *:nth-child(10) { animation-delay: 0.5s; }
-.stagger-children > *:nth-child(11) { animation-delay: 0.55s; }
-.stagger-children > *:nth-child(12) { animation-delay: 0.6s; }
-.stagger-children > *:nth-child(13) { animation-delay: 0.65s; }
-
-/* Glass card */
+/* ===== Glass card ===== */
 .glass-card {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   border-radius: 12px;
   padding: 2rem;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
 }
 .glass-card:hover {
   background: var(--glass-bg-hover);
   border-color: rgba(47, 111, 237, 0.3);
-  transform: translateY(-2px);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px -15px rgba(47, 111, 237, 0.15);
 }
 
-/* Trust indicator check items */
+/* ===== Trust indicator check items ===== */
 .trust-item {
   display: flex;
   align-items: center;
@@ -142,7 +156,7 @@ body {
   font-weight: 600;
 }
 
-/* Gradient text */
+/* ===== Gradient text ===== */
 .gradient-text {
   background: linear-gradient(135deg, var(--blue-electric) 0%, #5fa8ff 50%, #a4d0ff 100%);
   -webkit-background-clip: text;
@@ -150,12 +164,12 @@ body {
   background-clip: text;
 }
 
-/* Section gradient backgrounds */
+/* ===== Section gradient backgrounds ===== */
 .section-gradient {
   background: linear-gradient(180deg, transparent 0%, rgba(10, 19, 48, 0.5) 50%, transparent 100%);
 }
 
-/* Tech tag pill */
+/* ===== Tech tag pill ===== */
 .tech-pill {
   display: inline-block;
   padding: 0.4rem 0.9rem;
@@ -164,38 +178,49 @@ body {
   border: 1px solid var(--glass-border);
   background: var(--glass-bg);
   color: var(--slate);
-  transition: all 0.25s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: default;
 }
 .tech-pill:hover {
   border-color: var(--blue-electric);
   color: var(--ice);
   background: rgba(47, 111, 237, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px -3px rgba(47, 111, 237, 0.2);
 }
 
-/* Country flag badge */
+/* ===== Country flag badge ===== */
 .flag-badge {
   font-size: 2.5rem;
   line-height: 1;
 }
 
-/* Hero glow effect */
+/* ===== Hero glow effect ===== */
 .hero-glow {
   position: absolute;
-  width: 600px;
-  height: 600px;
+  width: 700px;
+  height: 700px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(47, 111, 237, 0.12) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(47, 111, 237, 0.15) 0%, transparent 70%);
   pointer-events: none;
   top: -200px;
   right: -150px;
-  animation: glow-pulse 6s ease-in-out infinite alternate;
-}
-@keyframes glow-pulse {
-  from { opacity: 0.5; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1.1); }
+  will-change: transform;
 }
 
-/* Service section icon container */
+.hero-glow-2 {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(95, 168, 255, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+  bottom: -100px;
+  left: -100px;
+  will-change: transform;
+}
+
+/* ===== Service section icon container ===== */
 .service-icon {
   width: 48px;
   height: 48px;
@@ -210,7 +235,83 @@ body {
   flex-shrink: 0;
 }
 
-/* focus visibility */
+/* ===== Magnetic wrapper ===== */
+.magnetic-wrap {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* ===== Marquee ===== */
+.marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.marquee-inner {
+  display: inline-flex;
+  will-change: transform;
+}
+
+.marquee-content {
+  display: inline-flex;
+  gap: 1.5rem;
+  padding-right: 1.5rem;
+  flex-shrink: 0;
+}
+
+/* ===== Horizontal scroll ===== */
+.horizontal-scroll-section {
+  overflow: hidden;
+  width: 100%;
+}
+
+.horizontal-scroll-track {
+  display: flex;
+  gap: 1.5rem;
+  padding: 0 2rem;
+  will-change: transform;
+}
+
+.horizontal-scroll-track > * {
+  flex-shrink: 0;
+}
+
+/* ===== Page transition ===== */
+.page-transition {
+  will-change: opacity, transform;
+}
+
+/* ===== Animated line connector ===== */
+.line-reveal {
+  height: 1px;
+  background: linear-gradient(90deg, var(--blue-electric), var(--slate-dim));
+  transform-origin: left;
+  will-change: transform;
+}
+
+/* ===== Floating glow orbs ===== */
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(80px);
+  will-change: transform;
+}
+
+.glow-orb-1 {
+  width: 300px;
+  height: 300px;
+  background: rgba(47, 111, 237, 0.08);
+}
+
+.glow-orb-2 {
+  width: 200px;
+  height: 200px;
+  background: rgba(95, 168, 255, 0.06);
+}
+
+/* ===== Focus visibility ===== */
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
@@ -228,7 +329,7 @@ textarea:focus-visible {
 .theme-toggle {
   background: none;
   border: none;
-  cursor: pointer;
+  cursor: none;
   padding: 0;
   display: flex;
   align-items: center;
@@ -302,7 +403,25 @@ textarea:focus-visible {
   color: #f59e0b;
 }
 
-/* Light-theme-specific overrides */
+/* ===== Scrollbar Styling ===== */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--navy-deep);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--slate-dim);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--blue-electric);
+}
+
+/* ===== Light-theme-specific overrides ===== */
 [data-theme="light"] .glass-card {
   background: rgba(255, 255, 255, 0.6);
   border-color: rgba(0, 0, 0, 0.06);
@@ -311,7 +430,7 @@ textarea:focus-visible {
 [data-theme="light"] .glass-card:hover {
   background: rgba(255, 255, 255, 0.85);
   border-color: rgba(29, 91, 214, 0.25);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
 }
 
 [data-theme="light"] .tech-pill {
@@ -342,4 +461,29 @@ textarea:focus-visible {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+[data-theme="light"] body {
+  cursor: none;
+}
+
+[data-theme="light"] .cursor-dot {
+  background: var(--blue-electric);
+  mix-blend-mode: normal;
+}
+
+[data-theme="light"] .cursor-ring {
+  border-color: var(--blue-electric);
+}
+
+[data-theme="light"] .noise-overlay {
+  opacity: 0.015;
+}
+
+[data-theme="light"] .glow-orb-1 {
+  background: rgba(29, 91, 214, 0.05);
+}
+
+[data-theme="light"] .glow-orb-2 {
+  background: rgba(29, 91, 214, 0.03);
 }
