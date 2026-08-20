@@ -7,6 +7,7 @@ import ContourDivider from '../components/ContourDivider.jsx'
 import TextReveal from '../components/TextReveal.jsx'
 import MagneticButton from '../components/MagneticButton.jsx'
 import MarqueeRow from '../components/MarqueeRow.jsx'
+import heroBgVideo from '../assets/bhalu bhai unfinished.mp4'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -222,10 +223,20 @@ export default function Home() {
   return (
     <div>
       {/* HERO */}
-      <section ref={heroRef} className="relative overflow-hidden">
+      <section ref={heroRef} className="hero-video-section relative overflow-hidden">
+        {/* Fullscreen background video */}
+        <video
+          className="hero-bg-video"
+          src={heroBgVideo}
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
+        <div className="hero-video-overlay" />
         <div ref={heroGlowRef} className="hero-glow" />
         <div ref={heroGlow2Ref} className="hero-glow-2" />
-        <div className="max-w-7xl mx-auto px-6 md:px-10 pt-20 pb-16 md:pt-28 md:pb-24">
+        <div className="max-w-7xl mx-auto px-6 md:px-10 pt-8 pb-16 md:pt-16 md:pb-24">
           <p className="hero-subtitle font-mono text-[12px] tracking-[0.3em] uppercase text-[var(--blue-electric)] mb-6">
             Accelerating Digital Transformation with SAP, AI & Elite Technology Talent
           </p>
@@ -242,8 +253,8 @@ export default function Home() {
             Empowering Businesses with SAP, AI, Digital Transformation & Global Technology Talent.
           </p>
           <p className="hero-desc mt-4 max-w-2xl text-[var(--slate)] text-base leading-relaxed">
-            Your trusted global partner for SAP Transformation, Artificial Intelligence, Enterprise IT Consulting, 
-            Digital Innovation, and AI-Powered Technology Recruitment—helping organizations build smarter businesses 
+            Your trusted global partner for SAP Transformation, Artificial Intelligence, Enterprise IT Consulting,
+            Digital Innovation, and AI-Powered Technology Recruitment—helping organizations build smarter businesses
             and stronger teams.
           </p>
 
@@ -286,8 +297,8 @@ export default function Home() {
           Comprehensive Technology Solutions
         </h2>
         <p className="services-desc text-[var(--slate)] max-w-2xl mb-12 leading-relaxed">
-          From SAP S/4HANA transformations and AI-driven automation to cloud modernization 
-          and specialized IT staffing, we deliver scalable solutions that drive operational 
+          From SAP S/4HANA transformations and AI-driven automation to cloud modernization
+          and specialized IT staffing, we deliver scalable solutions that drive operational
           excellence and create lasting business value.
         </p>
         <div className="grid gap-6 md:grid-cols-2">
@@ -331,8 +342,8 @@ export default function Home() {
               Delivering Technology Excellence with Measurable Business Impact
             </h2>
             <p className="why-desc text-[var(--slate)] leading-relaxed mb-8">
-              Whether your organization is expanding in North America, Canada, or India, our global 
-              delivery model enables us to provide the right technology expertise and talent exactly 
+              Whether your organization is expanding in North America, Canada, or India, our global
+              delivery model enables us to provide the right technology expertise and talent exactly
               when you need it.
             </p>
           </div>
@@ -386,8 +397,8 @@ export default function Home() {
             Your Partner for Technology Transformation<br />and Global Talent
           </h2>
           <p data-cta-reveal className="text-[var(--slate)] max-w-2xl mx-auto mb-4 leading-relaxed">
-            Whether you're implementing SAP S/4HANA, adopting Artificial Intelligence, modernizing enterprise 
-            systems, or building high-performing technology teams, Altitude Kinetic Solutions is your trusted 
+            Whether you're implementing SAP S/4HANA, adopting Artificial Intelligence, modernizing enterprise
+            systems, or building high-performing technology teams, Altitude Kinetic Solutions is your trusted
             partner for innovation and growth.
           </p>
           <p data-cta-reveal className="text-[var(--slate)] max-w-2xl mx-auto mb-10 text-sm">
