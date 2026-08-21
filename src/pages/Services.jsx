@@ -5,6 +5,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import ContourDivider from '../components/ContourDivider.jsx'
 import TextReveal from '../components/TextReveal.jsx'
 import MagneticButton from '../components/MagneticButton.jsx'
+import aiTechImg1 from '../assets/AItech services section1.png'
+import aiTechImg2 from '../assets/AItech services section2.png'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -59,7 +61,7 @@ function AnimatedPillGroup({ items }) {
   )
 }
 
-function ServiceSection({ icon, title, description, extraDesc, outcomesTitle, outcomesItems, pillsTitle, pillsItems }) {
+function ServiceSection({ icon, title, description, extraDesc, outcomesTitle, outcomesItems, pillsTitle, pillsItems, image, image2 }) {
   const sectionRef = useRef(null)
 
   useReveal(sectionRef, '.section-title',
@@ -71,6 +73,9 @@ function ServiceSection({ icon, title, description, extraDesc, outcomesTitle, ou
   useReveal(sectionRef, '.outcome-check',
     { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.5, stagger: 0.06, ease: 'power2.out' }
   )
+  useReveal(sectionRef, '.service-section-img',
+    { opacity: 0, scale: 0.92, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 1, ease: 'power3.out' }
+  )
 
   return (
     <section ref={sectionRef} className="max-w-7xl mx-auto px-6 md:px-10 py-16">
@@ -80,6 +85,12 @@ function ServiceSection({ icon, title, description, extraDesc, outcomesTitle, ou
           <h2 className="section-title font-display text-3xl md:text-4xl text-[var(--ice)] mb-4">{title}</h2>
           <p className="section-desc text-[var(--slate)] leading-relaxed mb-6">{description}</p>
           {extraDesc && <p className="section-desc text-[var(--slate)] leading-relaxed">{extraDesc}</p>}
+          {image && (
+            <div className="service-section-img mt-8 relative group">
+              <div className="absolute -inset-1 rounded-xl bg-gradient-to-br from-[var(--blue-electric)]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-md" />
+              <img src={image} alt={title} className="relative w-full rounded-xl border border-white/10 shadow-lg shadow-[var(--blue-electric)]/5" />
+            </div>
+          )}
           {outcomesTitle && outcomesItems && (
             <>
               <h3 className="font-display text-lg text-[var(--ice)] mb-4 mt-6">{outcomesTitle}</h3>
@@ -95,6 +106,12 @@ function ServiceSection({ icon, title, description, extraDesc, outcomesTitle, ou
           )}
         </div>
         <div>
+          {image2 && (
+            <div className="service-section-img mb-8 relative group">
+              <div className="absolute -inset-1 rounded-xl bg-gradient-to-bl from-[var(--blue-electric)]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-md" />
+              <img src={image2} alt={`${title} visual`} className="relative w-full rounded-xl border border-white/10 shadow-lg shadow-[var(--blue-electric)]/5" />
+            </div>
+          )}
           {pillsTitle && <h3 className="font-display text-lg text-[var(--ice)] mb-4">{pillsTitle}</h3>}
           {pillsItems && <AnimatedPillGroup items={pillsItems} />}
         </div>
@@ -143,7 +160,7 @@ export default function Services() {
       <ServiceSection icon="⚙️" title="Transform Your Enterprise with Intelligent SAP Solutions" description="We help organizations modernize, optimize, and future-proof their SAP ecosystem by delivering end-to-end consulting, implementation, migration, integration, and managed services." outcomesTitle="Business Outcomes" outcomesItems={sapOutcomes} pillsTitle="SAP Capabilities" pillsItems={sapCapabilities} />
 
       <ContourDivider label="AI & Automation" />
-      <ServiceSection icon="🤖" title="Building Intelligent Enterprises with AI" description="Artificial Intelligence is transforming every industry. We help organizations leverage AI to automate business processes, improve decision-making, enhance customer experiences, and unlock new growth opportunities." extraDesc="Our AI consulting services combine strategy, innovation, and implementation to deliver measurable business outcomes." pillsTitle="AI Solutions" pillsItems={aiSolutions} />
+      <ServiceSection icon="🤖" title="Building Intelligent Enterprises with AI" description="Artificial Intelligence is transforming every industry. We help organizations leverage AI to automate business processes, improve decision-making, enhance customer experiences, and unlock new growth opportunities." extraDesc="Our AI consulting services combine strategy, innovation, and implementation to deliver measurable business outcomes." pillsTitle="AI Solutions" pillsItems={aiSolutions} image={aiTechImg1} image2={aiTechImg2} />
 
       <ContourDivider label="IT Consulting" />
       <ServiceSection icon="💡" title="Technology Solutions Designed for Modern Businesses" description="We help organizations build secure, scalable, and future-ready digital ecosystems that accelerate innovation and business growth." pillsTitle="Consulting Services" pillsItems={itConsultingServices} />
