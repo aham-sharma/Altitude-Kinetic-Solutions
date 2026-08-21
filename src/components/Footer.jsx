@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import logo from '../assets/aks-logo.png'
+import logo from '../assets/aks-logo.webp'
 import MagneticButton from './MagneticButton.jsx'
 
 gsap.registerPlugin(ScrollTrigger)

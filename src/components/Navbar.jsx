@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { NavLink } from 'react-router-dom'
 import gsap from 'gsap'
-import logo from '../assets/aks-logo.png'
+import logo from '../assets/aks-logo.webp'
 import ThemeToggle from './ThemeToggle.jsx'
 import MagneticButton from './MagneticButton.jsx'
 

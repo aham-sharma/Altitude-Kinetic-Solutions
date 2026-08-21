@@ -5,8 +5,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import ContourDivider from '../components/ContourDivider.jsx'
 import TextReveal from '../components/TextReveal.jsx'
 import MagneticButton from '../components/MagneticButton.jsx'
-import aiTechImg1 from '../assets/AItech services section1.png'
-import aiTechImg2 from '../assets/AItech services section2.png'
+import aiTechImg1 from '../assets/ai-tech-services-1.webp'
+import aiTechImg2 from '../assets/ai-tech-services-2.webp'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -88,7 +88,7 @@ function ServiceSection({ icon, title, description, extraDesc, outcomesTitle, ou
           {image && (
             <div className="service-section-img mt-8 relative group">
               <div className="absolute -inset-1 rounded-xl bg-gradient-to-br from-[var(--blue-electric)]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-md" />
-              <img src={image} alt={title} className="relative w-full rounded-xl border border-white/10 shadow-lg shadow-[var(--blue-electric)]/5" />
+              <img src={image} alt={title} loading="lazy" decoding="async" width="1200" height="670" className="relative w-full h-auto rounded-xl border border-white/10 shadow-lg shadow-[var(--blue-electric)]/5" />
             </div>
           )}
           {outcomesTitle && outcomesItems && (
@@ -109,7 +109,7 @@ function ServiceSection({ icon, title, description, extraDesc, outcomesTitle, ou
           {image2 && (
             <div className="service-section-img mb-8 relative group">
               <div className="absolute -inset-1 rounded-xl bg-gradient-to-bl from-[var(--blue-electric)]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-md" />
-              <img src={image2} alt={`${title} visual`} className="relative w-full rounded-xl border border-white/10 shadow-lg shadow-[var(--blue-electric)]/5" />
+              <img src={image2} alt={`${title} visual`} loading="lazy" decoding="async" width="1200" height="670" className="relative w-full h-auto rounded-xl border border-white/10 shadow-lg shadow-[var(--blue-electric)]/5" />
             </div>
           )}
           {pillsTitle && <h3 className="font-display text-lg text-[var(--ice)] mb-4">{pillsTitle}</h3>}
